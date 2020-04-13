@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
-class Timer extends Component {
+class Timer extends PureComponent {
   constructor() {
     super();
     this.timer = React.createRef();
@@ -10,7 +10,23 @@ class Timer extends Component {
     };
   }
 
-  //Your code here
+  //Your code here 
+  //fires everytime component updates
+  componentDidUpdate() {
+    this.timer.current.style.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    console.log(this.timer.current.style.color)
+  }
+
+  //fires before a component commits to updating, if boolean = true
+  //prevents unnecessary updates caused by App's state changes
+  //result: DOM changes in componentDidUpdate only changes when Timer increments!
+  // automatically "included" in a React PureComponent
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.state.time === nextState.time) {
+  //     return false
+  //   }
+  //   return true 
+  // }
 
   componentDidMount() {
     this.interval = setInterval(
